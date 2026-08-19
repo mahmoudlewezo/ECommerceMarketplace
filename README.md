@@ -1,40 +1,36 @@
-# ECommerce Marketplace
+# ECommerceMarketplace
 
-A multi-vendor E-Commerce Marketplace built with ASP.NET Core MVC.
+An ASP.NET Core MVC E-Commerce Marketplace built as a graduation project.
+
+The system supports Customers, Sellers, and Administrators with role-based authentication and authorization.
+
+---
 
 ## Technologies
 
-- C#
 - ASP.NET Core MVC
+- .NET 10
+- C#
 - Entity Framework Core
 - SQL Server
 - ASP.NET Core Identity
-- HTML
-- CSS
-- JavaScript
 - Bootstrap
+- Razor Views
 
-## Team
-
-- Person 1 — Foundation & Authentication
-- Person 2 — Products & Categories
-- Person 3 — Cart, Wishlist & Checkout
-- Person 4 — Orders, Reviews & Dashboards
+---
 
 ## Project Structure
 
-The project follows a layered and organized ASP.NET Core MVC structure.
-
-## Features
-
-- Authentication & Authorization
-- Customer / Seller / Admin roles
-- Product Management
-- Categories
-- Shopping Cart
-- Wishlist
-- Checkout
-- Orders
-- Reviews
-- Admin Dashboard
-- Seller Dashboard
+```text
+ECommerceMarketplace
+│
+├── Controllers
+├── Data
+├── Models
+├── ViewModels
+├── Views
+├── wwwroot
+├── Migrations
+├── Program.cs
+├── appsettings.json
+└── ECommerceMarketplace.csproj
