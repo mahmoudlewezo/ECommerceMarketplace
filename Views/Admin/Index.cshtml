@@ -1,0 +1,378 @@
+﻿@model ECommerceMarketplace.ViewModels.Admin.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="admin-dashboard">
+
+    <!-- Header -->
+
+    <div class="dashboard-header">
+
+        <div>
+            <span class="dashboard-label">
+                ADMINISTRATION
+            </span>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Welcome back, Administrator.
+                Here's what's happening in your marketplace.
+            </p>
+        </div>
+
+        <div class="dashboard-date">
+            <i class="bi bi-calendar3"></i>
+            @DateTime.Now.ToString("MMM dd, yyyy")
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- Total Users -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="card-icon users-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+
+                <div class="card-content">
+
+                    <span>
+                        Total Users
+                    </span>
+
+                    <h2>
+                        @Model.TotalUsers
+                    </h2>
+
+                    <small>
+                        Registered accounts
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Customers -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="card-icon customer-icon">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+
+                <div class="card-content">
+
+                    <span>
+                        Customers
+                    </span>
+
+                    <h2>
+                        @Model.Customers
+                    </h2>
+
+                    <small>
+                        Active customers
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Sellers -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="card-icon seller-icon">
+                    <i class="bi bi-shop"></i>
+                </div>
+
+                <div class="card-content">
+
+                    <span>
+                        Sellers
+                    </span>
+
+                    <h2>
+                        @Model.Sellers
+                    </h2>
+
+                    <small>
+                        Marketplace sellers
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Suspended -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <div class="card-icon suspended-icon">
+                    <i class="bi bi-person-x-fill"></i>
+                </div>
+
+                <div class="card-content">
+
+                    <span>
+                        Suspended
+                    </span>
+
+                    <h2>
+                        @Model.SuspendedUsers
+                    </h2>
+
+                    <small>
+                        Suspended accounts
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Dashboard -->
+
+    <div class="row g-4">
+
+        <!-- Quick Actions -->
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h5>Quick Actions</h5>
+
+                        <p>
+                            Manage your marketplace
+                        </p>
+                    </div>
+
+                    <i class="bi bi-lightning-charge-fill"></i>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <a asp-controller="Users"
+                       asp-action="Index"
+                       class="quick-action">
+
+                        <span class="action-icon">
+                            <i class="bi bi-people"></i>
+                        </span>
+
+                        <span>
+                            <strong>Manage Users</strong>
+                            <small>View and manage users</small>
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+
+                    <a asp-controller="SellerRequests"
+                       asp-action="Index"
+                       class="quick-action">
+
+                        <span class="action-icon seller-action">
+                            <i class="bi bi-person-check"></i>
+                        </span>
+
+                        <span>
+                            <strong>Seller Requests</strong>
+
+                            <small>
+                                @Model.PendingSellerRequests pending requests
+                            </small>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="quick-action">
+
+                        <span class="action-icon product-action">
+                            <i class="bi bi-box-seam"></i>
+                        </span>
+
+                        <span>
+                            <strong>Products</strong>
+
+                            <small>
+                                Manage marketplace products
+                            </small>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Overview -->
+
+        <div class="col-lg-8">
+
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h5>Marketplace Overview</h5>
+
+                        <p>
+                            Current platform statistics
+                        </p>
+                    </div>
+
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                </div>
+
+
+                <div class="overview-list">
+
+                    <div class="overview-item">
+
+                        <div class="overview-info">
+
+                            <span class="overview-icon">
+                                <i class="bi bi-person"></i>
+                            </span>
+
+                            <span>
+                                <strong>Customers</strong>
+                                <small>Registered customers</small>
+                            </span>
+
+                        </div>
+
+                        <strong class="overview-number">
+                            @Model.Customers
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-item">
+
+                        <div class="overview-info">
+
+                            <span class="overview-icon">
+                                <i class="bi bi-shop"></i>
+                            </span>
+
+                            <span>
+                                <strong>Sellers</strong>
+                                <small>Approved marketplace sellers</small>
+                            </span>
+
+                        </div>
+
+                        <strong class="overview-number">
+                            @Model.Sellers
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-item">
+
+                        <div class="overview-info">
+
+                            <span class="overview-icon">
+                                <i class="bi bi-person-badge"></i>
+                            </span>
+
+                            <span>
+                                <strong>Administrators</strong>
+                                <small>System administrators</small>
+                            </span>
+
+                        </div>
+
+                        <strong class="overview-number">
+                            @Model.Admins
+                        </strong>
+
+                    </div>
+
+
+                    <div class="overview-item">
+
+                        <div class="overview-info">
+
+                            <span class="overview-icon warning">
+                                <i class="bi bi-clock-history"></i>
+                            </span>
+
+                            <span>
+                                <strong>Pending Requests</strong>
+                                <small>Waiting for review</small>
+                            </span>
+
+                        </div>
+
+                        <strong class="overview-number warning-text">
+                            @Model.PendingSellerRequests
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
