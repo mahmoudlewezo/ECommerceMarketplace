@@ -1,0 +1,227 @@
+﻿@model IEnumerable<ECommerceMarketplace.ViewModels.Product.ProductIndexViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold">Explore Products</h2>
+    <p class="text-muted">
+        Find the products you're looking for.
+    </p>
+</div>
+
+<form asp-action="Catalog"
+      method="get"
+      class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <!-- Search -->
+            <div class="col-md-4">
+
+                <label class="form-label fw-semibold">
+                    Search
+                </label>
+
+                <input type="text"
+                       name="search"
+                       value="@ViewBag.Search"
+                       class="form-control"
+                       placeholder="Search products..." />
+
+            </div>
+
+            <!-- Category -->
+            <div class="col-md-3">
+
+                <label class="form-label fw-semibold">
+                    Category
+                </label>
+
+                <select name="categoryId"
+                        class="form-select">
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        if (ViewBag.CategoryId != null &&
+                            (int)ViewBag.CategoryId == category.Id)
+                        {
+                            <option value="@category.Id" selected>
+                                @category.Name
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@category.Id">
+                                @category.Name
+                            </option>
+                        }
+                    }
+
+                </select>
+
+            </div>
+
+            <!-- Sort -->
+            <div class="col-md-3">
+
+                <label class="form-label fw-semibold">
+                    Sort By
+                </label>
+
+                <select name="sort"
+                        class="form-select">
+
+                    <option value="">
+                        Latest
+                    </option>
+
+                    <option value="price_asc"
+                            selected="@(ViewBag.Sort == "price_asc")">
+                        Price: Low to High
+                    </option>
+
+                    <option value="price_desc"
+                            selected="@(ViewBag.Sort == "price_desc")">
+                        Price: High to Low
+                    </option>
+
+                    <option value="name_asc"
+                            selected="@(ViewBag.Sort == "name_asc")">
+                        Name: A-Z
+                    </option>
+
+                    <option value="name_desc"
+                            selected="@(ViewBag.Sort == "name_desc")">
+                        Name: Z-A
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Button -->
+            <div class="col-md-2 d-flex align-items-end">
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+@if (!Model.Any())
+{
+    <div class="card border-0 shadow-sm">
+        <div class="card-body text-center py-5">
+
+            <h4 class="fw-bold">
+                No Products Found
+            </h4>
+
+            <p class="text-muted">
+                Try changing your search or filter.
+            </p>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+
+        @foreach (var product in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card h-100 border-0 shadow-sm">
+
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@product.ImageUrl"
+                             class="card-img-top"
+                             alt="@product.Name"
+                             style="height:230px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light d-flex align-items-center justify-content-center"
+                             style="height:230px;">
+
+                            <span class="text-muted">
+                                No Image
+                            </span>
+
+                        </div>
+                    }
+
+                    <div class="card-body d-flex flex-column">
+
+                        <span class="badge bg-secondary align-self-start mb-2">
+                            @product.CategoryName
+                        </span>
+
+                        <h5 class="card-title fw-bold">
+                            @product.Name
+                        </h5>
+
+                        <p class="card-text text-muted">
+                            @(product.Description.Length > 100
+                                ? product.Description.Substring(0, 100) + "..."
+                                : product.Description)
+                        </p>
+
+                        <div class="mt-auto">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <span class="fs-5 fw-bold text-primary">
+                                    @product.Price.ToString("C")
+                                </span>
+
+                                @if (product.AvailableQuantity > 0)
+                                {
+                                    <span class="badge bg-success">
+                                        In Stock
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        Out of Stock
+                                    </span>
+                                }
+
+                            </div>
+
+                            <a asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="btn btn-outline-primary w-100">
+                                View Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+}

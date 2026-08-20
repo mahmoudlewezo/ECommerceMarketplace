@@ -101,7 +101,8 @@
                 <li>
 
                     <a class="dropdown-item"
-                       href="#">
+                       asp-controller="Products"
+                       asp-action="MyProducts">
 
                         <i class="bi bi-box-seam me-2"></i>
 
@@ -132,7 +133,8 @@
                 <li>
 
                     <a class="dropdown-item"
-                       href="#">
+                       asp-controller="SellerRequests"
+                       asp-action="Index">
 
                         <i class="bi bi-person-check me-2"></i>
 
@@ -140,6 +142,17 @@
 
                     </a>
 
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Admin"
+                       asp-action="Categories">
+
+                        <i class="bi bi-tags me-2"></i>
+
+                        Manage Categories
+
+                    </a>
                 </li>
             }
 
