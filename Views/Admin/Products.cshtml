@@ -1,0 +1,194 @@
+﻿@model IEnumerable<ECommerceMarketplace.ViewModels.Admin.AdminProductViewModel>
+
+@{
+    ViewData["Title"] = "Products Management";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1">Products Management</h2>
+        <p class="text-muted mb-0">
+            View and manage all products in the marketplace.
+        </p>
+    </div>
+
+    <span class="badge bg-primary fs-6">
+        @Model.Count() Products
+    </span>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="card border-0 shadow-sm">
+        <div class="card-body text-center py-5">
+
+            <div class="fs-1 mb-3">📦</div>
+
+            <h4 class="fw-bold">
+                No Products Found
+            </h4>
+
+            <p class="text-muted">
+                There are currently no products in the marketplace.
+            </p>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Seller</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+
+                                <!-- Product -->
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                        {
+                                            <img src="@product.ImageUrl"
+                                                 alt="@product.Name"
+                                                 width="60"
+                                                 height="60"
+                                                 class="rounded me-3"
+                                                 style="object-fit: cover;" />
+                                        }
+                                        else
+                                        {
+                                            <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center"
+                                                 style="width:60px;height:60px;">
+                                                <span class="text-muted">
+                                                    📦
+                                                </span>
+                                            </div>
+                                        }
+
+                                        <div>
+                                            <div class="fw-semibold">
+                                                @product.Name
+                                            </div>
+
+                                            <small class="text-muted">
+                                                @(product.Description.Length > 60
+                                                    ? product.Description.Substring(0, 60) + "..."
+                                                    : product.Description)
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <!-- Category -->
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @product.CategoryName
+                                    </span>
+                                </td>
+
+                                <!-- Seller -->
+                                <td>
+                                    <span class="fw-semibold">
+                                        @product.SellerName
+                                    </span>
+                                </td>
+
+                                <!-- Price -->
+                                <td>
+                                    <strong>
+                                        @product.Price.ToString("C")
+                                    </strong>
+                                </td>
+
+                                <!-- Stock -->
+                                <td>
+
+                                    @if (product.AvailableQuantity > 0)
+                                    {
+                                        <span class="badge bg-success">
+                                            @product.AvailableQuantity in stock
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+                                            Out of stock
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="text-end">
+
+                                    <a asp-controller="Products"
+                                       asp-action="Details"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-sm btn-outline-primary">
+                                        View
+                                    </a>
+
+                                    <form asp-controller="Admin"
+                                          asp-action="RemoveProduct"
+                                          asp-route-id="@product.Id"
+                                          method="post"
+                                          class="d-inline">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-danger"
+                                                onclick="return confirm('Are you sure you want to remove this product?');">
+                                            Remove
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+}

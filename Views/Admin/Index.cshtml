@@ -228,9 +228,29 @@
                         <i class="bi bi-chevron-right"></i>
 
                     </a>
+                    <a asp-controller="Admin"
+                       asp-action="Categories"
+                       class="quick-action ">
+
+                        <span class="quick-action-icon">
+                            <i class="bi bi-tags"></i>
+                        </span>
+
+                        <span>
+                            <strong>Categories</strong>
+                            <small class="text-muted">
+                                Manage product categories
+                            </small>
+                        </span>
+                        <i class="bi bi-chevron-right"></i>
+
+                        
+
+                    </a>
 
 
-                    <a href="#"
+                    <a asp-controller="Admin"
+                       asp-action="Products"
                        class="quick-action">
 
                         <span class="action-icon product-action">

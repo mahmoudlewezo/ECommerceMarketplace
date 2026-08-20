@@ -98,53 +98,67 @@
 
                         </li>
 
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            @if (User.IsInRole("Customer") ||
-                                                User.IsInRole("Seller"))
-                            {
-                                <li class="nav-item">
+                        
 
-                                    <a class="nav-link"
-                                       href="#">
+                          @if (User.Identity?.IsAuthenticated == true)
+{
+    <!-- Products - Customer & Seller -->
+    @if (User.IsInRole("Customer") || User.IsInRole("Seller"))
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Products"
+               asp-action="Catalog">
+                <i class="bi bi-grid me-1"></i>
+                Products
+            </a>
+        </li>
+    }
 
-                                        Products
+    <!-- Seller -->
+    @if (User.IsInRole("Seller"))
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Products"
+               asp-action="MyProducts">
+                <i class="bi bi-box-seam me-1"></i>
+                My Products
+            </a>
+        </li>
+    }
 
-                                    </a>
+    <!-- Admin -->
+    @if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Products"
+               asp-action="Catalog">
+                <i class="bi bi-grid me-1"></i>
+                Products
+            </a>
+        </li>
 
-                                </li>
-                            }
+        <li class="nav-item">
+            <a class="nav-link admin-nav-link"
+               asp-controller="Admin"
+               asp-action="Products">
+                <i class="bi bi-box-seam me-1"></i>
+                Manage Products
+            </a>
+        </li>
 
-                            @if (User.IsInRole("Seller"))
-                            {
-                                <li class="nav-item">
+        <li class="nav-item">
+            <a class="nav-link admin-nav-link"
+               asp-controller="Admin"
+               asp-action="Index">
+                <i class="bi bi-speedometer2 me-1"></i>
+                Admin Dashboard
+            </a>
+        </li>
+    }
 
-                                    <a class="nav-link"
-                                       href="#">
-
-                                        My Products
-
-                                    </a>
-
-                                </li>
-                            }
-
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-
-                                    <a class="nav-link admin-nav-link"
-                                       asp-controller="Admin"
-                                       asp-action="Index">
-
-                                        <i class="bi bi-speedometer2 me-1"></i>
-
-                                        Admin Dashboard
-
-                                    </a>
-
-                                </li>
-                            }
                         }
 
                     </ul>

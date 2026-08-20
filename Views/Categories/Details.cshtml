@@ -1,0 +1,78 @@
+﻿@model ECommerceMarketplace.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body p-4">
+
+                <h2 class="fw-bold mb-4">
+                    Category Details
+                </h2>
+
+                <dl class="row">
+
+                    <dt class="col-sm-3">
+                        ID
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.Id
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Name
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.Name
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Description
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @(string.IsNullOrWhiteSpace(Model.Description)
+                            ? "No description"
+                            : Model.Description)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Products
+                    </dt>
+
+                    <dd class="col-sm-9">
+                        @Model.Products.Count
+                    </dd>
+
+                </dl>
+
+                <div class="mt-4 d-flex gap-2">
+
+                    <a asp-action="Edit"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Back
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
