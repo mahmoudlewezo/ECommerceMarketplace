@@ -1,8 +1,112 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
+    ViewData["FullWidth"] = true;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="home-hero">
+    <div class="container">
+        <p class="kicker">The marketplace</p>
+        <h1>Asrar</h1>
+        <p class="lede">
+            Quiet luxury for the everyday — rare finds and considered essentials
+            from independent sellers. Fashion, beauty, objects, and the things
+            you keep.
+        </p>
+        <div class="home-hero-actions">
+            <a class="btn btn-primary px-4"
+               asp-controller="Products"
+               asp-action="Catalog">
+                Enter the shop
+            </a>
+            @if (User.Identity?.IsAuthenticated != true)
+            {
+                <a class="btn btn-outline-primary px-4"
+                   asp-controller="Account"
+                   asp-action="Register">
+                    Create an account
+                </a>
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                <a class="btn btn-outline-primary px-4"
+                   asp-controller="Seller"
+                   asp-action="BecomeSeller">
+                    Become a seller
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="container">
+        <p class="kicker">Collections</p>
+        <h2 class="mb-2">Six rooms. One house.</h2>
+        <p class="home-note mb-4">
+            Browse the catalog — sign in if you have not already. Categories match
+            what our sellers list today.
+        </p>
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>01</span>
+                    <strong>Fashion</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>02</span>
+                    <strong>Beauty</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>03</span>
+                    <strong>Electronics</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>04</span>
+                    <strong>Home</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>05</span>
+                    <strong>Accessories</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a class="category-tile" asp-controller="Products" asp-action="Catalog">
+                    <span>06</span>
+                    <strong>Books</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-section alt">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="kicker">For customers</p>
+                <h2>Shop with intention.</h2>
+                <p class="home-note mb-0">
+                    Search, filter, and sort the catalog. Save pieces to a wishlist,
+                    keep a cart, and order when you are ready. Your history stays
+                    with your account.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <p class="kicker">For sellers</p>
+                <h2>A stall of your own.</h2>
+                <p class="home-note mb-0">
+                    Customers may request to sell. Once approved, you list products,
+                    manage quantity, and fulfill orders that include your pieces.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

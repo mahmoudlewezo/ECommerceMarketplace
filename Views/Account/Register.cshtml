@@ -4,92 +4,69 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-
-            <div class="card shadow">
-                <div class="card-body p-4">
-
-                    <h2 class="text-center mb-4">
-                        Create Account
-                    </h2>
-
-                    <form asp-action="Register" method="post">
-
-                        <div asp-validation-summary="ModelOnly"
-                             class="text-danger mb-3">
+<div class="auth-shell">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="auth-panel">
+                    <div class="row g-0">
+                        <div class="col-md-5 auth-aside d-none d-md-block">
+                            <p class="kicker">Join Asrar</p>
+                            <h2>Create an account</h2>
+                            <p class="text-muted mb-0">
+                                New members start as customers. You can request to sell later.
+                            </p>
                         </div>
+                        <div class="col-md-7">
+                            <div class="auth-body">
+                                <h1 class="h3 mb-3">Register</h1>
+                                <p class="text-muted small mb-4">
+                                    Password must be at least 6 characters and include a digit and a lowercase letter.
+                                </p>
 
-                        <div class="mb-3">
-                            <label asp-for="FullName"
-                                   class="form-label">
-                            </label>
+                                <form asp-action="Register" method="post">
+                                    <div asp-validation-summary="ModelOnly"
+                                         class="text-danger mb-3">
+                                    </div>
 
-                            <input asp-for="FullName"
-                                   class="form-control" />
+                                    <div class="mb-3">
+                                        <label asp-for="FullName" class="form-label"></label>
+                                        <input asp-for="FullName" class="form-control" autocomplete="name" />
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+                                    </div>
 
-                            <span asp-validation-for="FullName"
-                                  class="text-danger">
-                            </span>
+                                    <div class="mb-3">
+                                        <label asp-for="Email" class="form-label"></label>
+                                        <input asp-for="Email" class="form-control" autocomplete="username" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label asp-for="Password" class="form-label"></label>
+                                        <input asp-for="Password" class="form-control" autocomplete="new-password" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        Register
+                                    </button>
+                                </form>
+
+                                <div class="auth-switch">
+                                    <span>Already have an account?</span>
+                                    <a asp-action="Login">Login</a>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Email"
-                                   class="form-label">
-                            </label>
-
-                            <input asp-for="Email"
-                                   class="form-control" />
-
-                            <span asp-validation-for="Email"
-                                  class="text-danger">
-                            </span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Password"
-                                   class="form-label">
-                            </label>
-
-                            <input asp-for="Password"
-                                   class="form-control" />
-
-                            <span asp-validation-for="Password"
-                                  class="text-danger">
-                            </span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="ConfirmPassword"
-                                   class="form-label">
-                            </label>
-
-                            <input asp-for="ConfirmPassword"
-                                   class="form-control" />
-
-                            <span asp-validation-for="ConfirmPassword"
-                                  class="text-danger">
-                            </span>
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-primary w-100">
-                            Register
-                        </button>
-
-                    </form>
-
-                    <div class="text-center mt-3">
-                        <span>Already have an account?</span>
-                        <a asp-action="Login">
-                            Login
-                        </a>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
