@@ -41,6 +41,7 @@
     @if ((User.IsInRole("Customer") || User.IsInRole("Admin")) && (Model.Status == "Pending" || Model.Status == "Confirmed"))
     {
         <form asp-action="Cancel" asp-route-id="Model.Id" method="post" style="display:inline">
+            @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-danger">Cancel Order</button>
         </form>
     }

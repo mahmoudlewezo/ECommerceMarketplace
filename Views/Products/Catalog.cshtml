@@ -52,20 +52,16 @@
             <label class="form-label">Sort By</label>
             <select name="sort" class="form-select">
                 <option value="">Latest</option>
-                <option value="price_asc"
-                        selected="@(ViewBag.Sort == "price_asc")">
+                <option value="price_asc" selected="@(((ViewBag.Sort as string) == "price_asc") ? "selected" : null)">
                     Price: Low to High
                 </option>
-                <option value="price_desc"
-                        selected="@(ViewBag.Sort == "price_desc")">
+                <option value="price_desc" selected="@(((ViewBag.Sort as string) == "price_desc") ? "selected" : null)">
                     Price: High to Low
                 </option>
-                <option value="name_asc"
-                        selected="@(ViewBag.Sort == "name_asc")">
+                <option value="name_asc" selected="@(((ViewBag.Sort as string) == "name_asc") ? "selected" : null)">
                     Name: A-Z
                 </option>
-                <option value="name_desc"
-                        selected="@(ViewBag.Sort == "name_desc")">
+                <option value="name_desc" selected="@(((ViewBag.Sort as string) == "name_desc") ? "selected" : null)">
                     Name: Z-A
                 </option>
             </select>

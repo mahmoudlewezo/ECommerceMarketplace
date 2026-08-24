@@ -1,4 +1,5 @@
 @model ECommerceMarketplace.ViewModels.Order.OrderDetailsViewModel
+@using System.Security.Claims
 @{
     ViewData["Title"] = "Order Details (Seller)";
 }
@@ -45,11 +46,15 @@
 @* Status update form: only shown if seller owns all items. *@
 @if (User.IsInRole("Seller") || User.IsInRole("Admin"))
 {
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var allMine = User.IsInRole("Admin") ? true : Model.Items.All(i => i.SellerId == currentUserId);
+
     <form asp-action="UpdateStatus" method="post">
+        @Html.AntiForgeryToken()
         <input type="hidden" name="id" value="@Model.Id" />
         <div class="form-group">
             <label for="newStatus">New Status</label>
-            <select id="newStatus" name="newStatus" class="form-control" required>
+            <select id="newStatus" name="newStatus" class="form-control" required @(allMine ? string.Empty : "disabled")>
                 <option value="Pending">Pending</option>
                 <option value="Confirmed">Confirmed</option>
                 <option value="Shipped">Shipped</option>
@@ -57,6 +62,10 @@
                 <option value="Cancelled">Cancelled</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Update Status</button>
+        <button type="submit" class="btn btn-primary mt-2" @(allMine ? string.Empty : "disabled")>Update Status</button>
+        @if (!allMine)
+        {
+            <div class="form-text text-muted mt-2">This order contains products from multiple sellers and cannot be updated from your account.</div>
+        }
     </form>
 }

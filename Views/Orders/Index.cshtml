@@ -25,11 +25,12 @@
         <td>@o.Status</td>
         <td>@o.TotalPrice.ToString("C")</td>
         <td>@o.ItemCount</td>
-        <td>
+            <td>
             <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@o.Id">Details</a>
             @if ((User.IsInRole("Customer") || User.IsInRole("Admin")) && (o.Status == "Pending" || o.Status == "Confirmed"))
             {
                 <form asp-action="Cancel" asp-route-id="@o.Id" method="post" style="display:inline">
+                    @Html.AntiForgeryToken()
                     <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
                 </form>
             }
