@@ -114,11 +114,22 @@
             </a>
         </li>
         <li class="nav-item">
-    <a class="nav-link" asp-controller="Cart" asp-action="Index"> Cart</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" asp-controller="Wishlist" asp-action="Index"> Wishlist</a>
-</li>
+            <a class="nav-link" asp-controller="Cart" asp-action="Index"> <i class="bi bi-cart3 me-1"></i> Cart</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Wishlist" asp-action="Index"> <i class="bi bi-heart me-1"></i> Wishlist</a>
+        </li>
+
+        @* Customer orders link *@
+        @if (User.IsInRole("Customer"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Orders" asp-action="Index">
+                    <i class="bi bi-receipt me-1"></i>
+                    My Orders
+                </a>
+            </li>
+        }
     }
 
     <!-- Seller -->
@@ -130,6 +141,13 @@
                asp-action="MyProducts">
                 <i class="bi bi-box-seam me-1"></i>
                 My Products
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="SellerOrders" asp-action="Index">
+                <i class="bi bi-clipboard-data me-1"></i>
+                Seller Orders
             </a>
         </li>
     }
@@ -161,6 +179,15 @@
                asp-action="Index">
                 <i class="bi bi-speedometer2 me-1"></i>
                 Admin Dashboard
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link admin-nav-link"
+               asp-controller="AdminOrders"
+               asp-action="Index">
+                <i class="bi bi-collection me-1"></i>
+                Manage Orders
             </a>
         </li>
     }
