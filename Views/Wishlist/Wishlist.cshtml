@@ -1,0 +1,37 @@
+﻿@model ECommerceMarketplace.Models.Wishlist
+
+<div class="container mt-4">
+    <h2>Your Fav Products.</h2>
+
+    @if (Model == null || !Model.WishlistItems.Any())
+    {
+        <p>There are no products in your wishlist.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model.WishlistItems)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <img src="@item.Product.ImageUrl" class="card-img-top" alt="@item.Product.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Product.Name</h5>
+                            <p class="card-text">@item.Product.Price.ToString("C")</p>
+                            <div class="d-flex justify-content-between">
+                                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                    <button type="submit" class="btn btn-primary btn-sm">إضافة للسلة</button>
+                                </form>
+                                <form asp-controller="Wishlist" asp-action="RemoveFromWishlist" method="post">
+                                    <input type="hidden" name="wishlistItemId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
