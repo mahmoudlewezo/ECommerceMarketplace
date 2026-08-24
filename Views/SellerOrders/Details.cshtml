@@ -1,0 +1,71 @@
+@model ECommerceMarketplace.ViewModels.Order.OrderDetailsViewModel
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Order Details (Seller)";
+}
+
+<h2>Order #@Model.Id</h2>
+<p>
+    <strong>Date:</strong> @Model.OrderDate.ToString("g")<br />
+    <strong>Status:</strong> @Model.Status<br />
+    <strong>Total:</strong> @Model.TotalPrice.ToString("C")<br />
+    <strong>Customer:</strong> @Model.CustomerName
+</p>
+
+<h3>Items</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Seller</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var it in Model.Items)
+{
+    <tr>
+        <td>@it.ProductName</td>
+        <td>@it.SellerName</td>
+        <td>@it.Quantity</td>
+        <td>@it.UnitPrice.ToString("C")</td>
+        <td>@(it.UnitPrice * it.Quantity).ToString("C")</td>
+    </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to Orders</a>
+</div>
+
+<hr />
+
+@* Status update form: only shown if seller owns all items. *@
+@if (User.IsInRole("Seller") || User.IsInRole("Admin"))
+{
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var allMine = User.IsInRole("Admin") ? true : Model.Items.All(i => i.SellerId == currentUserId);
+
+    <form asp-action="UpdateStatus" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="newStatus">New Status</label>
+            <select id="newStatus" name="newStatus" class="form-control" required @(allMine ? string.Empty : "disabled")>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" @(allMine ? string.Empty : "disabled")>Update Status</button>
+        @if (!allMine)
+        {
+            <div class="form-text text-muted mt-2">This order contains products from multiple sellers and cannot be updated from your account.</div>
+        }
+    </form>
+}

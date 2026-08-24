@@ -73,6 +73,12 @@ namespace ECommerceMarketplace
                 await DbInitializer.SeedAsync(
                     roleManager,
                     userManager);
+                // Seed development test data (categories, test users, products)
+                // This is safe and idempotent. It will not modify the schema.
+                var dbContext = scope.ServiceProvider
+                    .GetRequiredService<ApplicationDbContext>();
+
+                await DbInitializer.SeedTestDataAsync(dbContext, roleManager, userManager);
             }
 
             // =========================

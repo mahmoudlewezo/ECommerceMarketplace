@@ -1,0 +1,47 @@
+@model ECommerceMarketplace.ViewModels.Order.OrderDetailsViewModel
+@{
+    ViewData["Title"] = "Order Details (Admin)";
+}
+
+<h2>Order #@Model.Id</h2>
+<p>
+    <strong>Date:</strong> @Model.OrderDate.ToString("g")<br />
+    <strong>Status:</strong> @Model.Status<br />
+    <strong>Total:</strong> @Model.TotalPrice.ToString("C")<br />
+    <strong>Customer:</strong> @Model.CustomerName
+</p>
+
+<h3>Items</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Seller</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var it in Model.Items)
+{
+    <tr>
+        <td>@it.ProductName</td>
+        <td>@it.SellerName</td>
+        <td>@it.Quantity</td>
+        <td>@it.UnitPrice.ToString("C")</td>
+        <td>@(it.UnitPrice * it.Quantity).ToString("C")</td>
+    </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to Orders</a>
+</div>
+
+<hr />
+
+<form asp-action="Details" method="get" class="d-inline">
+    <a class="btn btn-primary" href="@Url.Action("Index", "Admin")">Admin Dashboard</a>
+</form>

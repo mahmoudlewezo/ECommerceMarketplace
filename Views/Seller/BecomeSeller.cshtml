@@ -4,65 +4,46 @@
     ViewData["Title"] = "Become a Seller";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-7">
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="auth-panel">
+            <div class="auth-body">
+                <p class="kicker">Sellers</p>
+                <h1 class="h2 mb-2">Become a seller</h1>
+                <p class="text-muted mb-4">
+                    Tell us why you want a stall on Asrar. An administrator will
+                    review your request. If you already have a pending request,
+                    you will be asked to wait.
+                </p>
 
-            <div class="card shadow">
-                <div class="card-body p-4">
+                <form asp-action="BecomeSeller" method="post">
+                    @Html.AntiForgeryToken()
 
-                    <h2 class="mb-3">
-                        Become a Seller
-                    </h2>
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
 
-                    <p class="text-muted">
-                        Submit a request to become a seller on
-                        ECommerceMarketplace.
-                    </p>
+                    <div class="mb-4">
+                        <label asp-for="Reason" class="form-label"></label>
+                        <textarea asp-for="Reason"
+                                  class="form-control"
+                                  rows="6"
+                                  placeholder="Tell us what you plan to offer..."></textarea>
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
 
-                    <form asp-action="BecomeSeller"
-                          method="post">
-
-                        @Html.AntiForgeryToken()
-
-                        <div asp-validation-summary="ModelOnly"
-                             class="text-danger mb-3">
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label asp-for="Reason"
-                                   class="form-label">
-                            </label>
-
-                            <textarea asp-for="Reason"
-                                      class="form-control"
-                                      rows="6"
-                                      placeholder="Tell us why you want to become a seller...">
-                            </textarea>
-
-                            <span asp-validation-for="Reason"
-                                  class="text-danger">
-                            </span>
-
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-primary">
-                            Submit Request
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary px-4">
+                            Submit request
                         </button>
-
                         <a asp-controller="Home"
                            asp-action="Index"
-                           class="btn btn-secondary">
+                           class="btn btn-outline-secondary">
                             Cancel
                         </a>
-
-                    </form>
-
-                </div>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>

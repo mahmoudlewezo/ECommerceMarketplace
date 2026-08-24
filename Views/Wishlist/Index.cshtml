@@ -1,4 +1,4 @@
-﻿@model ECommerceMarketplace.Models.Wishlist
+@model ECommerceMarketplace.Models.Wishlist
 
 <div class="container mt-4">
     <h2>Your Fav Products.</h2>
@@ -20,10 +20,12 @@
                             <p class="card-text">@item.Product.Price.ToString("C")</p>
                             <div class="d-flex justify-content-between">
                                 <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                    @Html.AntiForgeryToken()
                                     <input type="hidden" name="productId" value="@item.ProductId" />
-                                    <button type="submit" class="btn btn-primary btn-sm">إضافة للسلة</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
                                 </form>
                                 <form asp-controller="Wishlist" asp-action="RemoveFromWishlist" method="post">
+                                    @Html.AntiForgeryToken()
                                     <input type="hidden" name="wishlistItemId" value="@item.Id" />
                                     <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                                 </form>
